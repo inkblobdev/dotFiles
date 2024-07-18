@@ -1,0 +1,302 @@
+"" Zuri's ideavimrc
+
+"" This file is catered to my personal use case and borrowed several ideas from the neovim kickstart file.
+
+"" Base Settings
+"" ================================================================================
+
+"" Leader
+let mapleader = " "
+
+"" Line Numbering
+set number relativenumber
+
+"" Don't show the mode, since it's already in the widget
+unset showmode
+
+"" Sync clipboard between os and ideavim.
+set clipboard+=unnamedplus
+set clipboard+=ideaput
+
+"" Ensure <c-c> <c-v> and <c-w> are captured by the ide and not ideavim.
+"" NOTE: there is no equivalent in neovim.
+sethandler <c-c> a:ide
+sethandler <c-v> a:ide
+
+"" Enable break indent
+set breakindent
+
+"" History
+set history=1000
+
+"" Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+set ignorecase
+set smartcase
+
+"" Decrease mapped sequence wait time
+"" Displays which-key popup sooner
+set timeoutlen=300
+set notimeout
+
+"" Sets if displaying whitespace characters in the editor
+set list
+
+"" Show which line your cursor is on
+set cursorline
+
+"" Minimum number of lines above and below the cursor.
+set scrolloff=10
+
+"" show information about about cmd
+set showcmd
+
+"" No bell
+set visualbell
+
+"" ideavim settings
+set ideajoin
+set ideamarks
+set idearefactormode=select
+
+nnoremap \e :e ~/.ideavimrc<CR>
+let g:WhichKeyDesc_ideavimfile = "\\e open .ideavimrc"
+nmap \r <Action>(IdeaVim.ReloadVimRc.reload)
+let g:WhichKeyDesc_ideavimreload = "\\r reload .ideavimrc"
+
+"" [[Basic Keymaps]]
+"" ================================================================================
+
+"" Set highlight on search, but clear with esc in normal mode.
+set hlsearch
+nmap <Esc> :noh<CR>
+
+"" find and replace
+set incsearch
+set gdefault
+
+"" Diagnostic keymaps
+nmap ]d <Action>(GotoNextError)
+let g:WhichKeyDesc_diagnostics_go_to_next_error = "]d Go to next [D]iagnostic message"
+nmap [d <Action>(GotoPreviousError)
+let g:WhichKeyDesc_diagnostics_go_to_previous_error = "[d Go to previous [D]iagnostic message"
+nmap <leader>e <Action>(ShowErrorDescription)
+let g:WhichKeyDesc_diagnostics_error_description = "<leader>e Show diagnostic [E]rror me"
+nmap <leader>q <Action>(ShowIntentionActions)
+let g:WhichKeyDesc_diagnostics_quick_action_menu = "<leader>q Open [Q]uickFix list"
+
+"" Keybinds to make split navigation easier.
+sethandler <c-j> a:vim
+sethandler <c-k> a:vim
+sethandler <c-h> a:vim
+sethandler <c-l> a:vim
+nnoremap <c-h> <C-w>h
+nnoremap <c-l> <C-w>l
+nnoremap <c-k> <C-w>k
+nnoremap <c-j> <C-w>j
+
+"" Plugin Settings
+"" ================================================================================
+
+"" Highlight when yanking (copying text)
+set highlightedyank
+
+"" easymotion moves
+set easymotion
+let g:WhichKeyDesc_easymotion_prefix = "<leader><leader> easymotion"
+set quickscope
+set surround
+set NERDTree
+set multicursor
+set ReplaceWithRegister
+set textobj-entire
+set which-key
+
+
+" Which-key settings
+"" ========================================================
+set which-key
+let g:WhichKey_ShowVimActions = "true"
+let g:WhichKey_FontSize = 16
+let g:WhichKey_CommandColor = "#41ead4"
+let g:WhichKey_PrefixColor = "#f335b2"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+
+" QuickScope settings
+"" ========================================================
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:qs_accepted_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+    's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '[', ']', '{', '}',
+    '(', ')', '*', '&', '%' ,'$']
+
+"" IDE Search/Find
+
+let g:WhichKeyDesc_find = "<leader>f [F]ind"
+nmap <leader>ff <Action>(GotoFile)
+let g:WhichKeyDesc_find_file = "<leader>ff [F]ind [F]iles"
+nmap <leader>fg <Action>(FindInPath)
+let g:WhichKeyDesc_find_by_grep = "<leader>fg [F]ind by [G]rep"
+nmap <leader>fw <Action>(FindWordAtCaret)
+let g:WhichKeyDesc_find_word = "<leader>fw [F]ind next [W]ord"
+nmap <leader>fW <Action>(FindPrevWordAtCaret)
+let g:WhichKeyDesc_find_prev_word = "<leader>fW [F]ind prev [W]ord"
+nmap <leader>fr <action>(RecentFiles)
+let g:WhichKeyDesc_find_show_recent_files = "<leader>fr [F]ind [R]ecent"
+nmap <leader>fl <action>(RecentLocations)
+let g:WhichKeyDesc_find_show_recent_locations = "<leader>fl [F]ind recent [L]ocations"
+
+"" Go to code
+nmap gd <action>(GotoDeclaration)
+nmap gy <action>(GotoTypeDeclaration)
+nmap gi <action>(GotoImplementation)
+nmap gu <action>(ShowUsages)
+nmap gt <action>(GotoTest)
+nmap gs <action>(GotoSuperMethod)
+nmap <C-t> <action>(Back)
+nmap ge <Action>(GotoNextError)
+nmap gE <Action>(GotoPreviousError)
+
+
+"" Refactor
+let g:WhichKeyDesc_refactoring = "<leader>r [R]efactoring"
+nmap <leader>rf <action>(Refactorings.QuickListPopupAction)
+let g:WhichKeyDesc_refactoring_menu = "<leader>rf [R]e[f]actoring menu"
+nmap <leader>rn <action>(RenameElement)
+let g:WhichKeyDesc_refactoring_rename = "<leader>rn [R]e[n]ame element"
+
+nmap <leader>ca <Action>(ShowIntentionActions)
+let g:WhichKeyDesc_diagnostics_quick_action_menu = "<leader>ca [C]ode [A]ction"
+
+"" Show hover information
+nmap <S-k> <action>(QuickJavaDoc)
+
+" Actions
+nmap <leader>d <action>(QuickImplementations)
+let g:WhichKeyDesc_action_description = "<leader>d Open Quick [D]escription Popup"
+
+
+"" Window/pane navigation
+"" =======================================================
+
+" Tab navigation use alt-arrows better
+nnoremap <TAB> :tabnext<CR>
+nnoremap <s-TAB> :tabprev<CR>
+
+" Close tabs
+nmap <Leader>x <action>(CloseContent)
+let g:WhichKeyDesc_close_editor = "<leader>x [X]Close current editor"
+
+
+
+" Window options
+nmap <leader>wv <action>(SplitVertically)
+nmap <leader>wh <action>(SplitHorizontally)
+nmap <leader>wu <action>(Unsplit)
+nmap <leader>wm <action>(MoveEditorToOppositeTabGroup)
+nmap <leader>wo <action>(OpenEditorInOppositeTabGroup)
+nmap <leader>wz <action>(MaximizeEditorInSplit)
+nmap <leader>wt <action>(HideAllWindows)
+nmap <Leader>wn <action>(EditSourceInNewWindow)
+" nnoremap <Leader>wn <action>(NextWindow)
+let g:WhichKeyDesc_windows           = "<leader>w [W]indows"
+let g:WhichKeyDesc_windows_unsplit   = "<leader>wu Merge/[U]nsplit"
+let g:WhichKeyDesc_windows_move      = "<leader>wm [M]ove to oposite split"
+let g:WhichKeyDesc_windows_open      = "<leader>wo [O]pen in oposite split"
+let g:WhichKeyDesc_windows_maximize  = "<leader>wz Maximi[z]e current split"
+let g:WhichKeyDesc_windows_hide      = "<leader>wt [T]oggle all tool windows"
+let g:WhichKeyDesc_windows_split_hor = "<leader>wh Split [H]orizontally"
+let g:WhichKeyDesc_windows_split_ver = "<leader>wv Split [V]ertically"
+let g:WhichKeyDesc_windows_new       = "<leader>wn Open in [n]ew window"
+
+" Display options
+nmap <leader><S-d>d <action>(ToggleDistractionFreeMode)
+nmap <leader><S-d>z <action>(ToggleZenMode)
+nmap <leader><S-d>f <action>(ToggleFullScreen)
+let g:WhichKeyDesc_display_options                 = "<leader>D [D]isplay Options"
+let g:WhichKeyDesc_display_options_distractionfree = "<leader>Dd [D]istraction Free Mode"
+let g:WhichKeyDesc_display_options_zen             = "<leader>Dz [Z]en Mode"
+let g:WhichKeyDesc_display_options_fullscreen      = "<leader>Df [F]ullscreen Mode"
+
+" Terminal
+nmap <leader>t <action>(ActivateTerminalToolWindow)
+let g:WhichKeyDesc_terminal = "<leader>t Activate [t]erminal pane"
+" move to editor with esc"
+" close terminal pane with s-esc"
+
+" Open NERDTree (use q to exit)
+nmap <leader>p <action>(ActivateProjectToolWindow)
+let g:WhichKeyDesc_project_pane = "<leader>p Activate [p]roject tree pane"
+
+"" Editing text and moving around
+"" ========================================================
+
+"" easy indent
+vnoremap < <gv
+vnoremap > >gv
+
+"" jumping with easymotion
+nmap <leader>j <leader><leader>s
+let g:WhichKeyDesc_easymotion_jump = "<leader>j [J]ump with easymotion"
+
+"" movement in insert mode
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+" Comment lines
+map <leader>/ <action>(CommentByLineComment)
+let g:WhichKeyDesc_comment = "<leader>/ [/]Toggle comment"
+
+
+" Folding
+nmap zc <action>(CollapseRegion)
+nmap zo <action>(ExpandRegion)
+nmap <leader>zc <action>(CollapseAllRegions)
+nmap <leader>zo <action>(ExpandAllRegions)
+let g:WhichKeyDesc_fold       = "<leader>z [Z]Folding"
+let g:WhichKeyDesc_fold_all   = "<leader>zc Fold all regions"
+let g:WhichKeyDesc_unfold_all = "<leader>zo Unfold all regions"
+
+" Goland code
+nmap <leader>cg <action>(Generate)
+nmap <leader>cf <action>(ReformatCode)
+nmap <leader>co <action>(OptimizeImports)
+nmap <leader>cs <action>(FileStructurePopup)
+nmap <leader>c<S-s> <action>(SaveAll)
+let g:WhichKeyDesc_code = "<leader>c [C]ode"
+let g:WhichKeyDesc_code_save = "<leader>cS [S]ave All"
+let g:WhichKeyDesc_code_generating = "<leader>cg [G]enerate menu"
+let g:WhichKeyDesc_code_format = "<leader>cf Re[f]ormat Code"
+let g:WhichKeyDesc_code_optimize = "<leader>co [O]ptimize Imports"
+
+" Git windows
+nmap <leader>gc <action>(CheckinProject)
+nmap <leader>gs <action>(ActivateVersionControlToolWindow)
+nmap <leader>gb <action>(Git.Branches)
+let g:WhichKeyDesc_git = "<leader>g [G]it operations"
+let g:WhichKeyDesc_git_commit = "<leader>gc Open Git commit dialog"
+let g:WhichKeyDesc_git_status = "<leader>gs Open Git status dialog"
+let g:WhichKeyDesc_git_branches = "<leader>gb Open Git branches list"
+
+" Run
+nmap <leader>R <action>(RunMenu)
+let g:WhichKeyDesc_run = "<leader>R open [R]un menu"
+
+" Bookmarks
+nmap <leader>me <action>(ShowBookmarks)
+nmap <leader>mb <action>(ToggleBookmark)
+let g:WhichKeyDesc_bookmark = "<leader>m Book[m]arks"
+let g:WhichKeyDesc_bookmark_show = "<leader>me Show bookmarks"
+let g:WhichKeyDesc_bookmark_toggle "<leader>mb Toggle bookmark on location"
+
+"" jetbrains ai assistant
+nmap <leader>ia  <action>(ActivateAIAssistantToolWindow)
+let g:WhichKeyDesc_ia = "<leader>i Jetbrains A[I]"
+let g:WhichKeyDesc_ia_toolwindow = "<leader>ia Open [A]I toolwindow"
+
+nmap <leader>fs <action>(ActivateStructureToolWindow)
+nmap <leader>fn <action>(NewElement)
+let g:WhichKeyDesc_file_nav_Structure_popup = "<leader>s Open [S]tructure Popup"
+let g:WhichKeyDesc_file_nav_Structure_toolwindow = "<leader>fs Open Structure toolwindow"
