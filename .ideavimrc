@@ -153,7 +153,7 @@ let g:WhichKeyDesc_find_by_grep = "<leader>fg [F]ind by [G]rep"
 nmap <leader>fw viw<leader>fg
 let g:WhichKeyDesc_find_word = "<leader>fw [F]ind [w]ord"
 nmap <leader>fW viW<leader>fg
-let g:WhichKeyDesc_find_prev_word = "<leader>fW [F]ind [W]ord"
+let g:WhichKeyDesc_find_whole_word = "<leader>fW [F]ind [W]ord"
 nmap <leader>fr <action>(RecentFiles)
 let g:WhichKeyDesc_find_show_recent_files = "<leader>fr [F]ind [R]ecent"
 nmap <leader>fl <action>(RecentLocations)
@@ -202,13 +202,14 @@ let g:WhichKeyDesc_close_editor = "<leader>x [X]Close current editor"
 
 
 "" Window options
-nmap <leader>wv <action>(SplitVertically)
-nmap <leader>wh <action>(SplitHorizontally)
+nmap <leader>w\ <action>(SplitVertically)
+nmap <leader>w- <action>(SplitHorizontally)
 nmap <leader>wu <action>(Unsplit)
 nmap <leader>wm <action>(MoveEditorToOppositeTabGroup)
 nmap <leader>wo <action>(OpenEditorInOppositeTabGroup)
 nmap <leader>wz <action>(MaximizeEditorInSplit)
 nmap <leader>wt <action>(HideAllWindows)
+nmap <S-ESC> <action>(HideAllWindows)
 nmap <Leader>wn <action>(EditSourceInNewWindow)
 let g:WhichKeyDesc_windows           = "<leader>w [W]indows"
 let g:WhichKeyDesc_windows_unsplit   = "<leader>wu Merge/[U]nsplit"
@@ -216,8 +217,8 @@ let g:WhichKeyDesc_windows_move      = "<leader>wm [M]ove to oposite split"
 let g:WhichKeyDesc_windows_open      = "<leader>wo [O]pen in oposite split"
 let g:WhichKeyDesc_windows_maximize  = "<leader>wz Maximi[z]e current split"
 let g:WhichKeyDesc_windows_hide      = "<leader>wt [T]oggle all tool windows"
-let g:WhichKeyDesc_windows_split_hor = "<leader>wh Split [H]orizontally"
-let g:WhichKeyDesc_windows_split_ver = "<leader>wv Split [V]ertically"
+let g:WhichKeyDesc_windows_split_hor = "<leader>w- Split [H]orizontally"
+let g:WhichKeyDesc_windows_split_ver = "<leader>w\\ Split [V]ertically"
 let g:WhichKeyDesc_windows_new       = "<leader>wn Open in [n]ew window"
 
 "" Display options
@@ -286,6 +287,7 @@ nmap <leader>cw <action>(EditorToggleUseSoftWraps)
 nmap <leader>c<S-s> <action>(SaveAll)
 let g:WhichKeyDesc_code            = "<leader>c [C]ode"
 let g:WhichKeyDesc_code_save       = "<leader>cS [S]ave All"
+let g:WhichKeyDesc_code_structure  = "<leader>cs [s]tructure popup"
 let g:WhichKeyDesc_code_generating = "<leader>cg [G]enerate menu"
 let g:WhichKeyDesc_code_format     = "<leader>cf Re[f]ormat Code"
 let g:WhichKeyDesc_code_optimize   = "<leader>co [O]ptimize Imports"
@@ -301,8 +303,14 @@ let g:WhichKeyDesc_git_status   = "<leader>gs Open [G]it [s]tatus dialog"
 let g:WhichKeyDesc_git_branches = "<leader>gb Open [G]it [b]ranches list"
 
 " Run
-nmap <leader>R <action>(RunMenu)
-let g:WhichKeyDesc_run = "<leader>R open [R]un menu"
+nmap <leader>Rc <action>(RunClass)
+nmap <leader>Rm <action>(RunMenu)
+nmap <leader>Rb <action>(ToggleLineBreakpoint)
+let g:WhichKeyDesc_run_menu        = "<leader>R [R]un and debug"
+let g:WhichKeyDesc_run_class       = "<leader>Rc [R]un current [c]lass"
+let g:WhichKeyDesc_run_menu_popup  = "<leader>Rm open [R]un [m]enu"
+let g:WhichKeyDesc_run_breakpoint  = "<leader>Rb toggle [R]un [b]reakpoint"
+
 
 " Bookmarks
 nmap <leader>me <action>(ShowBookmarks)
