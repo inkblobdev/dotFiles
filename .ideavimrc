@@ -258,12 +258,6 @@ vnoremap > >gv
 map <leader>j <Plug>(easymotion-s)
 let g:WhichKeyDesc_easymotion_jump = "<leader>j [J]ump with easymotion"
 
-"" movement in insert mode
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
-
 "" Comment lines
 map <leader>/ <action>(CommentByLineComment)
 let g:WhichKeyDesc_comment = "<leader>/ [/]Toggle comment"
