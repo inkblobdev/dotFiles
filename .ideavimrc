@@ -300,10 +300,12 @@ let g:WhichKeyDesc_git_branches = "<leader>gb Open [G]it [b]ranches list"
 nmap <leader>Rc <action>(RunClass)
 nmap <leader>Rm <action>(RunMenu)
 nmap <leader>Rb <action>(ToggleLineBreakpoint)
+nmap <leader>Ra <action>(RunAnything)
 let g:WhichKeyDesc_run_menu        = "<leader>R [R]un and debug"
 let g:WhichKeyDesc_run_class       = "<leader>Rc [R]un current [c]lass"
 let g:WhichKeyDesc_run_menu_popup  = "<leader>Rm open [R]un [m]enu"
 let g:WhichKeyDesc_run_breakpoint  = "<leader>Rb toggle [R]un [b]reakpoint"
+let g:WhichKeyDesc_run_anything    = "<leader>Ra [R]un anything"
 
 
 " Bookmarks
